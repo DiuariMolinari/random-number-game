@@ -8,11 +8,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.senac.game.ui.theme.GameTheme
@@ -80,9 +83,8 @@ fun Initial(onTry: (String) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
         horizontalAlignment= Alignment.CenterHorizontally) {
 
-        Text(text = "Adivinhe o número entre 1 e 100", style = MaterialTheme.typography.h2)
-//
-        OutlinedTextField(value = tryNumberState.value, onValueChange = { tryNumberState.value = it })
+        Text(text = "Adivinhe o número entre 1 e 100", style = MaterialTheme.typography.h5, modifier = Modifier.padding(all = 25.dp))
+        OutlinedTextField(value = tryNumberState.value, onValueChange = { tryNumberState.value = it }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
 
         OutlinedButton(onClick =  {
                 onTry(tryNumberState.value);
@@ -98,7 +100,8 @@ fun FailedTry(aproximacao: String, onRetry: () -> Unit){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Voce Errou! O número gerado é ${aproximacao}", style = MaterialTheme.typography.h3)
+        Text(text = "Voce Errou!", style = MaterialTheme.typography.h5, modifier = Modifier.padding(start = 25.dp, bottom = 5.dp))
+        Text(text = "O número gerado é: ${aproximacao}", style = MaterialTheme.typography.h5, modifier = Modifier.padding(start = 25.dp, bottom = 25.dp))
         OutlinedButton(onClick =  {
             onRetry()
         }) {
@@ -113,7 +116,8 @@ fun SuccessTry(onNewGame: () -> Unit){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Parabéns!", style = MaterialTheme.typography.h1)
+        Text(text = "Parabéns!", style = MaterialTheme.typography.h4, modifier = Modifier.padding(start = 25.dp, bottom = 5.dp))
+        Text(text = "Voce acertou!", style = MaterialTheme.typography.h4, modifier = Modifier.padding(start = 25.dp, bottom = 25.dp))
         OutlinedButton(onClick =  {
             onNewGame()
         }) {
